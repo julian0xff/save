@@ -1,0 +1,33 @@
+version: 2
+
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - darwin
+      - linux
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w -X main.version={{.Version}}
+
+archives:
+  - format: tar.gz
+
+checksum:
+  name_template: checksums.txt
+
+changelog:
+  sort: asc
+
+brews:
+  - repository:
+      owner: julian0xff
+      name: homebrew-tap
+    directory: Formula
+    homepage: https://github.com/julian0xff/save
+    description: Save articles for reading later — from the terminal.
+    license: MIT
+    test: |
+      system "#{bin}/save", "--version"
